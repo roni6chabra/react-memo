@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React , { useState , useMemo , useCallback } from 'react';
+import Count from './Count';
+import Btn from './Btn';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [age, setAge] = useState(25)
+  const [salary, setSalary] = useState(50000)
 
+  	const incrementAge = useCallback(() => {
+		setAge(age + 1)
+	},[age])
+
+	const incrementSalary = useCallback(() => {
+		setSalary(salary + 1000);
+  	},[salary])
+
+	const isEvenAge = useMemo(() => {
+		for (let i=0; i< 2000000000; i++);
+		return age % 2 === 0
+	},[age])
+	 
+	console.log('==============');
+
+	return (
+    <div className="App">
+		<h1>useMemo + useCallback</h1>
+		<h2>{isEvenAge ? <span className='even'>Even</span> : <span>Odd</span>} Age</h2>
+		<Count text="Age" count={age} />
+		<Btn handleClick={incrementAge}>Increment Age</Btn>
+		<Count text="Salary" count={salary} />
+		<Btn handleClick={incrementSalary}>Increment Salary</Btn>
+	</div>
+  )
+}
 export default App;
