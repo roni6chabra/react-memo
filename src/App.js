@@ -8,15 +8,19 @@ const App = () => {
   const [salary, setSalary] = useState(50000)
 
   	const incrementAge = useCallback(() => {
+		console.log('incrementAge',age);
 		setAge(age + 1)
 	},[age])
 
 	const incrementSalary = useCallback(() => {
+		console.log('incrementSalary',salary);
 		setSalary(salary + 1000);
   	},[salary])
 
 	const isEvenAge = useMemo(() => {
+		console.time();
 		for (let i=0; i< 2000000000; i++);
+		console.timeEnd();
 		return age % 2 === 0
 	},[age])
 	 
@@ -24,7 +28,7 @@ const App = () => {
 
 	return (
     <div className="App">
-		<h1>useMemo + useCallback</h1>
+		<h1>useMemo + useCallback!</h1>
 		<h2>{isEvenAge ? <span className='even'>Even</span> : <span>Odd</span>} Age</h2>
 		<Count text="Age" count={age} />
 		<Btn handleClick={incrementAge}>Increment Age</Btn>
